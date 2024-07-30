@@ -1,1 +1,114 @@
-<p>Hello words</p>
+<!-- DOM Manipulation -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM Manipulation</title>
+    <style>
+      .highlight {
+        background-color: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <h4 id="my-heading">This is a heading</h4>
+    <button onclick="addClass()">Add highlight</button>
+    <button onclick="removeClass()">Remove highlight</button>
+
+    <h3 id="ChangeContent">Original Content</h3>
+    <button onclick="changeContentById()">ChangeContent</button>
+
+    <h3 class="ChangeBg">Original Color</h3>
+    <button onclick="changeBg()">change BG</button>
+
+    <ul
+      id="ul-item"
+      style="border: 3px solid burlywood"
+      onmouseover="mouseHover()"
+    >
+      <li id="item-1">Item 1</li>
+      <li>Item 2</li>
+    </ul>
+    <button onclick="removeItem()">Remove</button>
+    <button onclick="removeLastChild()">RemoveLastchild</button>
+
+    <div>
+      <img
+        id="chnageImage"
+        src="https://images.pexels.com/photos/20157737/pexels-photo-20157737/free-photo-of-back-view-of-a-group-of-friends-sitting-on-a-shore-in-city-an-drinking-beer.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
+        alt="Images"
+      />
+      <button onclick="ChangeImageSrc()">Change Image</button>
+    </div>
+  </body>
+  <script>
+    //Task01 and 09: Select an HTML element by its ID and change its content.
+    function changeContentById() {
+      document.getElementById("ChangeContent").innerHTML = "New Content";
+    }
+
+    // Task02: Select an HTML element by its class and change its background color.
+    function changeBg() {
+      const text = document.getElementsByClassName("ChangeBg");
+      for (let i = 0; i < text.length; i++) {
+        text[i].style.backgroundColor = "blue";
+        text[i].style.color = "white";
+      }
+    }
+
+    // Task03: Create a new Div element with some text content and append it to the body.
+    const newDiv = document.createElement("Div");
+
+    newDiv.textContent =
+      "This is a new Div block add to html body by through Dom.";
+
+    document.body.appendChild(newDiv);
+
+    // Task04:  Create a new li element and add it to an existing ul list
+    const ul = document.getElementById("ul-item");
+
+    const newli = document.createElement("li");
+
+    newli.textContent =
+      "new li list is added in ul element in html by through Dom ";
+
+    ul.appendChild(newli);
+
+    //Task05: Select an HTML element and remove it from the DOM.
+    function removeItem() {
+      document.getElementById("item-1").remove();
+    }
+
+    //Task06: Remove the last child of a specific HTML element.
+    function removeLastChild() {
+      document.getElementById("ul-item").lastElementChild.remove();
+    }
+
+    //Task07: Select an HTML element and changes one of its attributes(e.g., src of an img tag).
+    function ChangeImageSrc() {
+      const newImage = document.getElementById("chnageImage");
+
+      newImage.src =
+        "https://images.pexels.com/photos/27221178/pexels-photo-27221178/free-photo-of-laptop-in-an-office.jpeg?auto=compress&cs=tinysrgb&w=400&lazy=load";
+    }
+
+    //Task08: Add and remove a css class to/from an HTML element.
+    function addClass() {
+      let element = document.getElementById("my-heading");
+      element.classList.add("highlight");
+    }
+
+    function removeClass() {
+      let element = document.getElementById("my-heading");
+      element.classList.remove("highlight");
+    }
+
+    //Task10: Add a mouseover event listener to an element that change its border color.
+    function mouseHover() {
+      let element = document.getElementById("ul-item");
+      element.style.border = "3px solid green";
+    }
+  </script>
+</html>
