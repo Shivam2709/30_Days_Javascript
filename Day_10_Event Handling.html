@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Handling</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+        #heading-2 {
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <h3 id="changeText">Original Content</h3>
+    <button onclick="changeContent()">Change Content</button>
+
+    <img id="my-image" src="https://images.pexels.com/photos/20157737/pexels-photo-20157737/free-photo-of-back-view-of-a-group-of-friends-sitting-on-a-shore-in-city-an-drinking-beer.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
+    alt="Sample Image"
+    ondblclick="toggleVisibility()"
+    />
+
+    <h2 id="heading" onmouseover="changeBackground()">change text background</h2>
+    <h2 id="heading-2" onmouseover="resetBackground()">change text background</h2>
+
+    <input type="text" onkeydown="logKey(event)">
+
+    <p id="inputValue"></p>
+
+    <input type="text" onkeyup="inputValue(event)">
+
+    <form id="my-form">
+        <label for="Name">Name:</label>
+        <input type="text" id="name" name="name" />
+        <br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" />
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <label for="my-select">Choose an option:</label>
+    <select id="my-select">
+        <option value="option 1">Option 1</option>
+        <option value="option 2">Option 2</option>
+        <option value="option 3">Option 3</option>
+    </select>
+    <p id="selected-value">Selected value will be displayed here.</p>
+</body>
+<script>
+    //Task01: Add a click event listener to a button that change the text content of a paragraph.
+    function changeContent(){
+        document.getElementById("changeText").innerHTML = "New Content";
+    }
+
+    //Task02: Add a double-click event listener to an image that toggles its visibility.
+
+    function toggleVisibility() {
+        let image = document.getElementById("my-image");
+        image.classList.toggle('hidden')
+    }
+
+    //Task03: Add a mouseover event listener to an element that change its background color.
+    function changeBackground() {
+        let element = document.getElementById("heading");
+        element.style.backgroundColor = "red";
+    }
+
+    //Task04: Add a mouseout event listener to an element that resets its background color.
+    function resetBackground() {
+        let element = document.getElementById("heading-2");
+        element.style.backgroundColor = "white";
+    }
+
+    //Task05: Add a keydown event listener to an input field that logs the key pressed to the console.
+    function logKey(event) {
+        console.log(event.key);
+    }
+
+    //Task06: Add a keyup event listener to an input field that displays the current values in a paragraph.
+    function inputValue(event) {
+        document.getElementById("inputValue").innerHTML = event.target.value
+    }
+
+    //Task07: Add a submit event listener to a form that prevents the default submission and logs the form data to the console.
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+
+        formData.forEach((value, key) => {
+            console.log(key+ ': '+ value);
+        });
+    }
+
+    document.getElementById('my-form').addEventListener('submit', handleSubmit);
+
+    //Task08: Add a change event listener to a select dropdown that displays the selected values in a paragraph.
+    function handleSelectChange(event) {
+        const selectValue = event.target.value;
+        document.getElementById("inputValue").innerHTML = event.target.value
+    }
+</script>
+</html>
