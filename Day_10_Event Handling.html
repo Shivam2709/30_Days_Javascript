@@ -48,6 +48,17 @@
         <option value="option 3">Option 3</option>
     </select>
     <p id="selected-value">Selected value will be displayed here.</p>
+
+    <ul id="myList">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+    </ul>
+
+    <div id="parentElement">
+        <button>Add child</button>
+    </div>
 </body>
 <script>
     //Task01: Add a click event listener to a button that change the text content of a paragraph.
@@ -102,5 +113,36 @@
         const selectValue = event.target.value;
         document.getElementById("inputValue").innerHTML = event.target.value
     }
+
+    //Task09: Add a click event listener to a list that logs the text content of the clicked list item using event delegation.
+    const list = document.getElementById('myList');
+
+    list.addEventListener('click', function(event) {
+        if(event.target && event.target.nodeName === 'LI'){
+            console.log(event.target.textContent);
+        }
+    })
+
+    //Task10: Add a event listener to a parent element that listens for events from dynamically added child elements.
+
+    const parentElement = document.getElementById('parentElement');
+
+    parentElement.addEventListener('click', function(event) {
+        if(event.target && event.target.classList.contains('childElement')){
+            console.log("Child element clicked", event.target.textContent);
+        }
+    })
+
+    // function to add a new child element dynamically
+    function addElement() {
+        const newChild = document.createElement('p');
+        newChild.classList.add("childElement");
+        newChild.textContent = 'I am a new child element';
+        parentElement.appendChild(newChild);
+    }
+
+    // add an event listener to the button to add new child elements.
+    const addButton = parentElement.querySelector('button');
+    addButton.addEventListener('click', addElement);
 </script>
 </html>
