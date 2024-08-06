@@ -17,7 +17,7 @@ function errorHandle() {
 }
 
 // Call the function to see the error handling in action
-// errorHandle();
+errorHandle();
 
 //Task02: Create a function that divides two numbers and throws an error if the denominator is zero. Use try-catch block to-handle this error.
 
@@ -37,8 +37,8 @@ function handleDivision(num, denominator){
     }
 }
 
-//handleDivision(10, 2);
-//handleDivision(10, 0);
+handleDivision(10, 2);
+handleDivision(10, 0);
 
 //Task03: Write a script that includes a try-catch block and a finally block. Log messages in the try, catch and finally block to observe the execution flow.
 
@@ -60,7 +60,7 @@ function executeWithFinally(){
 }
 
 // Call the function to see the execution flow
-//executeWithFinally();
+executeWithFinally();
 
 //Task04: Create a custom error class that extends the build-in Error class. Thrown an instance of this custom error in a function and handle it using a try-catch block.
 
@@ -93,7 +93,7 @@ function handleCustomerError() {
 }
 
 // Call the function to see the custom error handling in action.
-// handleCustomerError();
+handleCustomerError();
 
 //Task05: Write a function that validates user input(e.g., checking if a string is not empty) and throws a custom error if the validation fails. Handle the custom error using try-catch block.
 
@@ -126,4 +126,94 @@ function handleValidation(input) {
 handleValidation("Hello world");
 handleValidation("");
 
-//Task06: 
+//Task06: Create a promise that randomly resolve or rejects. Use .catch() to handle the rejection and log an appropriate message to the console.
+
+function getRandomPromise() {
+    return new Promise((resolve, reject) => {
+        const isSuccess = Math.random() > 0.5;
+        setTimeout(() => {
+            if(isSuccess){
+                resolve("Promise resolved");
+            }else {
+                reject(new Error('Promise rejected'));
+            }
+        }, 1000);
+    })
+}
+
+getRandomPromise()
+    .then((message) => {
+        console.log(message);
+    })
+    .catch((err) => {
+        console.log('An error occurred:', err.message);
+    })
+
+//Task07: Use try-catch within an async function to handle error from a promise that randomly resolves or rejects, and log the error message.
+
+function getRamdomPromise() {
+    return new Promise((resolve, reject) => {
+        const isSuccess = Math.random() > 0.5;
+        setTimeout(() => {
+            if(isSuccess){
+                resolve("Promise resolved Successfully!");
+            }else {
+                reject(new Error("Promise rejected!"))
+            }
+        }, 1000)
+    })
+}
+
+async function handleRamdomPromise(){
+    try{
+        const message = await getRamdomPromise();
+        console.log(message);
+    } catch(err) {
+        console.log("An error occurred:", err.message);
+    }
+    
+}
+
+handleRamdomPromise();
+
+//Task08: Use the fetch API to request data from an invalid URL and handle the error using .catch() log an appropriate error message to the console.
+
+function fetchData() {
+    const invalidUrl = "https://invalid-url.example.com";
+
+    fetch(invalidUrl)
+        .then(res => {
+            if(!res.ok){
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            return res.json();
+        })
+        .then(data => {
+            console.log("Data fetched successfully:", data);
+        })
+        .catch(err => {
+            console.error("An error occurred while fetching data:", err.message);
+        });
+}
+
+fetchData();
+
+//Task09: Use the fetch API to request data from an invalid URL within an async function and handle the error using try-catch. log an appropriate error message.
+
+async function fetchAsyncData() {
+    const invalidUrl = "https://invalid-url.example.com";
+
+    try {
+        const response = await fetch(invalidUrl);
+        if(!response.ok){
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("Data fetched successfully", data);
+    }catch(err){
+        console.log("An error occurred while fetching data with async function:", err.message);
+    }
+}
+
+fetchAsyncData();
