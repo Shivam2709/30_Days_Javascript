@@ -144,3 +144,71 @@ itemManager.removeItem("Banana");
 itemManager.listItem();
 
 itemManager.removeItem("Grapes"); 
+
+//Task07: Write a function that memoizes the result of another function. Use a closure to store the result of previous component.
+
+function memoizes(fn) {
+    // Cache object to store previous results
+    const cache = {};
+
+    return function(...args){
+        // Create a unique key based on the function's arguments
+        const key = JSON.stringify(args);
+
+        // If the result is in the cache, return it
+        if(cache[key]) {
+            console.log("Returning cached result");
+            return cache[key];
+        }
+
+         // Otherwise, compute the result and store it in the cache
+        const result = fn(...args);
+        cache[key] = result;
+
+        return result;
+    }
+}
+
+
+// Example function to be memoized
+function slowFunction(num) {
+    console.log('Computing result...');
+    return num * 2;
+}
+
+// Memoizing the slow function
+const memoized = memoizes(slowFunction);
+
+
+console.log(memoized(5)); 
+console.log(memoized(5)); 
+console.log(memoized(10)); 
+console.log(memoized(10));
+
+//Task08: Create a memoized version of a function that calculates the factorial of a number.
+
+function memoizeFactorial(){
+    const cache = {};
+
+    function factorial(n){
+
+        if( n <= 1) return 1;
+
+        if(cache[n]){
+            console.log(`Returning cached result for ${n}!`);
+            return cache[n];
+        }
+
+        console.log(`Computing factorial for ${n}...`);
+        cache[n] = n * factorial(n - 1);
+        return cache[n];
+    }
+    return factorial;
+}
+
+const memoizedFactorial = memoizeFactorial();
+
+console.log(memoizedFactorial(5)); 
+console.log(memoizedFactorial(5)); 
+console.log(memoizedFactorial(6)); 
+console.log(memoizedFactorial(6));
